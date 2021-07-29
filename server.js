@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
 const cors = require('cors');
-
+const path = require('path');
 
 
 const app = express(); 
@@ -29,7 +29,7 @@ const transporter = nodemailer.createTransport({
   auth: {
     user: process.env.EMAIL,
     pass: process.env.WORD, //replace with the email address
-    //pass: "qzzgcqksyjvovwkx" //replace with the password
+    //replace with the password
   }
 });
 
@@ -72,10 +72,10 @@ router.post('/contact', (req, res) => {
 
 // This middleware informs the express application to serve our compiled React files
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
-    app.use(express.static(path.join(__dirname, 'client/build')));
+    app.use(express.static(path.join(__dirname, 'client/react_portfolio/build')));
 
     app.get('*', function (req, res) {
-        res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+        res.sendFile(path.join(__dirname, 'client/react_portfolio/build', 'index.html'));
     });
 };
 
